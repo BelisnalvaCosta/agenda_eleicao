@@ -7,12 +7,13 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icon" rel="stylesheet"/>
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css" media="screen,projection"/>
+
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
-<h1>Lista de Eventos de Candidatos Eleitorais:</h1>
-<h3><a href="/cadastrarEventos" class="waves.effect waves.light btn"><i class="material.icon left">add_circle_outline</i>Cadastar Eventos</a></h3>
+<h1>Lista de Eventos de Candidatos</h1>
+<h3><a href="/cadastrarEventos" class="waves-effect waves-light btn"><i class="material-icon left">add_circle_outline</i>Cadastar Eventos</a></h3>
 <table class="container">
     <thead>
     <tr>
@@ -25,9 +26,8 @@
     </tr>
     </thead>
     <tbody>
-    </th>
-    <tr each="agendaEleitoral : ${agendaEleitoral}">
-        <th><a href="${(#mvc.url('EC#detalhesAgendaEleitoral').arg(0, agendaEleitoral.codigo)).build()}"><span text="${agendaEleitoral.nome}"></span></a></th>
+        <tr each="agendaEleicao : ${agendaEleicao}">
+            <td><a href="${#mvc.url('EC#detalhesAgendaEleicao').arg(0, agenda.codigo).build()}"><span text="${agenda.nome}"></span></a></a></td>
         <td>span th:text="${agenda.codigo}"></span></td>
         <td>span th:text="${agendaEleitoral.nome}"></span></td>
         <td>span th:text="${agenda.partido}"></span></td>
@@ -36,6 +36,7 @@
     </tr>
     </tbody>
 </table>
+
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
 </body>

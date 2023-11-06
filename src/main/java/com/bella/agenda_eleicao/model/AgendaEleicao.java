@@ -1,11 +1,9 @@
 package com.bella.agenda_eleicao.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 public class AgendaEleicao implements Serializable {
@@ -22,6 +20,9 @@ public class AgendaEleicao implements Serializable {
     private String local;
     private String data;
     private String horario;
+
+    @OneToMany
+    private List<Convidado> convidados;
 
     //Este modelo só usa o Getter e setter, (não usa o construtor)
     public long getCodigo() {

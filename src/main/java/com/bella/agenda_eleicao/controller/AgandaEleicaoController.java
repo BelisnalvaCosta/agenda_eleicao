@@ -1,19 +1,24 @@
 package com.bella.agenda_eleicao.controller;
 
-        import com.bella.agenda_eleicao.model.AgendaEleicao;
-        import com.bella.agenda_eleicao.repository.AgendaEleicaoRepository;
-        import org.springframework.beans.factory.annotation.Autowired;
-        import org.springframework.stereotype.Controller;
-        import org.springframework.web.bind.annotation.PathVariable;
-        import org.springframework.web.bind.annotation.RequestMapping;
-        import org.springframework.web.bind.annotation.RequestMethod;
-        import org.springframework.web.servlet.ModelAndView;
+import com.bella.agenda_eleicao.model.AgendaEleicao;
+import com.bella.agenda_eleicao.model.Convidado;
+import com.bella.agenda_eleicao.repository.AgendaEleicaoRepository;
+import com.bella.agenda_eleicao.repository.ConvidadoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class AgandaEleicaoController {
 
     @Autowired
     private AgendaEleicaoRepository er;
+
+    @Autowired
+    private ConvidadoRepository cr;
 
     @RequestMapping(value = "/cadastrarAgendaEleicao", method=RequestMethod.GET)
     public String form(){
@@ -34,12 +39,24 @@ public class AgandaEleicaoController {
         return mv;
     }
 
-    @RequestMapping("/{codigo}")
+    @RequestMapping(value="/{codigo}", method=RequestMethod.GET)
     public ModelAndView detalhesAgendaEleicao(@PathVariable("codigo") long codigo){
         AgendaEleicao agendaEleicao = er.findByCodigo(codigo);
         ModelAndView mv = new ModelAndView("agendaEleicao/datelhesAgendaEleicao");
         mv.addObject("agendaEleicao", agendaEleicao);
-        System.out.println("agendaEleicao" + agendaEleicao);
+
+        Iterable<Convidado> convidados = cr.findByAgendaEleicao(agendaEleicao);
+        mv.addObject("convidados", convidados);
+
         return mv;
     }
+
+    @RequestMapping(value="/{codigo}", method=RequestMethod.POST)
+    public String detalhesAgendaEleicaoPost(@PathVariable("codigo") long codigo, Convidado convidado) {
+        AgendaEleicao agendaEleicao = er.findByCodigo(codigo);
+        convidado.setAgendaEleicao(agendaEleicao);
+        cr.save(convidado);
+        return "redirect:/{codigo}";
+    }
+
 }
