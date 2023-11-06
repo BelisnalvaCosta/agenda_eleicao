@@ -8,8 +8,11 @@ import jakarta.persistence.ManyToOne;
 public class Convidado {
 
     @Id
+    @NotEmpty
     private int codigo_candidato;
+    @NotEmpty
     private String nome_candidato;
+    @NotEmpty
     private String partido;
 
     @ManyToOne

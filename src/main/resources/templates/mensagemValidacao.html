@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns: xmlns:th="http://www.w3.org/1999/xhtml" th="https://thymeleaf.org"
+      xmlns: layout="https://www.utraq.net.nz/thymeleaf/layout">
+<head>
+
+</head>
+<body>
+    <div class="alert alert-success alert-dismissible" role="alert" th:if="${not #strings.isEmpty(mensagem)}">
+        <span th:text="${mensagem}"></span>
+    </div>
+</body>
+</html>
