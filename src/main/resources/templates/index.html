@@ -10,32 +10,41 @@
 
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="style/style.css">
 </head>
 <body>
-<h1>Lista de Eventos de Candidatos</h1>
-<h3><a href="/cadastrarEventos" class="waves-effect waves-light btn"><i class="material-icon left">add_circle_outline</i>Cadastar Eventos</a></h3>
-<table class="container">
-    <thead>
-    <tr>
-        <th>Codigo</th>
-        <th>Nome</th>
-        <th>Partido</th>
-        <th>Local</th>
-        <th>Data</th>
-        <th>Horario</th>
-    </tr>
-    </thead>
-    <tbody>
+    <header>
+        <nav>
+            <div class="nav-wrapper">
+                <a href="#" class="brand-logo">Lista de Eventos de Candidatos</a>
+                <ul id="nav-mobile" class="right hide-on.med-and.down">
+                    <li><a href="/cadastrarEventos" class="waves-effect waves-light btn"><i class="material-icons left">add_circle_outline</i>Cadastar Evento</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <table class="container">
+        <thead>
+        <tr>
+            <th>Codigo</th>
+            <th>Nome</th>
+            <th>Partido</th>
+            <th>Local</th>
+            <th>Data</th>
+           <th>Horario</th>
+        </tr>
+        </thead>
+        <tbody>
         <tr each="agendaEleicao : ${agendaEleicao}">
-            <td><a href="${#mvc.url('EC#detalhesAgendaEleicao').arg(0, agenda.codigo).build()}"><span text="${agenda.nome}"></span></a></a></td>
-        <td>span th:text="${agenda.codigo}"></span></td>
-        <td>span th:text="${agendaEleitoral.nome}"></span></td>
-        <td>span th:text="${agenda.partido}"></span></td>
-        <td>span th:text="${agendaEleitoral.local}"></span></td>
-        <td>span th:text="${agendaEleitoral.horario}"></span></td>
-    </tr>
-    </tbody>
-</table>
+            <td><a href="${(#mvc.url('EC#detalhesAgendaEleicao').arg(0, agenda.codigo)).build()}"><span text="${agenda.nome}"></span></a></a></td>
+            <td>span th:text="${agenda.codigo}"></span></td>
+            <td>span th:text="${agendaEleitoral.nome}"></span></td>
+            <td>span th:text="${agenda.partido}"></span></td>
+            <td>span th:text="${agendaEleitoral.local}"></span></td>
+            <td>span th:text="${agendaEleitoral.horario}"></span></td>
+        </tr>
+        </tbody>
+    </table>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="materialize/js/materialize.min.js"></script>

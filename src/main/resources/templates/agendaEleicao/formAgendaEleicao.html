@@ -10,11 +10,23 @@
 
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="style/style.css">
 </head>
 <body>
 
-    <h1>Cadastro de Eventos Eleitorais:</h1>
-    <h3><a href="/Eventos" class="waves.effect waves.light btn"><i class="material-icon left">format_list_bulleted</i>Lista de Eventos</a></h3>
+    <header>
+        <nav>
+            <div class="nav-wrapper">
+                <a href="#" class="brand-logo">Cadastro de Eventos:</a>
+                <ul id="nav-mobile" class="right hide-on.med-and.down">
+                <li><a href="/eventos" class="waves-effect waves-light btn"><i class="material-icons left">format_list_bulleted</i>Lista de Eventos</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <block th:include="mensagemValidacao"></block>
+
     <form class="container" method="post">
         Codigo: <input type="text" value="" name="código/">
         <div class="row">
@@ -31,10 +43,9 @@
         Data: <input type="date" value="" name="data/">
             </div>
             <div class="input-field col s3">
-        Horario: <input type="text" value="" name="horário/">
+        Horario: <input type="time" value="" name="horário/">
             </div>
         </div>
-
         <button class="waves-effect waves-light btn" type="submit">Salvar</button>
 
     </form>

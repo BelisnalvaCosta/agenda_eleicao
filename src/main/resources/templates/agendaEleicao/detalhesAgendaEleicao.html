@@ -9,40 +9,56 @@
     <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css" media="screen,projection"/>
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="style/style.css">
 </head>
 <body>
-<h1>Eventos Eleitorais de Candidatos:</h1>
-<h3><a href="/AgendaEleicao" class="waves-effect waves-light btn"><i class="material-icon left">add_circle_outline</i>Lista de Eventos Eleitorais</a></h3>
-<div th:each="AgendaEleicao : ${AgendaEleicao}" class="container">
-    <div class="row">
-        <p>Codigo: <span th:text="${agenda.codigo}"></span></p>
-        <p>Nome: <span th:text="${agendaEleitoral.nome}"></span></p>
-        <p>Partido: <span th:text="${agenda.partido}"></span></p>
-        <p>Local: <span th:text="${agendaEleitoral.local}"></span></p>
-        <p>Horario: <span th:text="${agendaEleitoral.horario}"></span></p>
+    <header>
+        <nav>
+            <div class="nav-wrapper">
+                <a href="#" class="brand-logo">Eventos:</a>
+                <ul id="nav-mobile" class="right hide-on.med-and.down">
+                <li><a href="/eventos" class="waves-effect waves-light btn"><i class="material-icons left">format_list_bulleted</i>Lista de Eventos</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div th:each="agendaEleicao: ${AgendaEleicao}" class="container detalhesAgendaEleicao">
+        <h5>Detalhes do Evento</h5>
+        <div class="row">
+            <p>Codigo: <span th:text="${agenda.codigo}"></span></p>
+            <p>Nome: <span th:text="${agendaEleitoral.nome}"></span></p>
+            <p>Partido: <span th:text="${agenda.partido}"></span></p>
+            <p>Local: <span th:text="${agendaEleitoral.local}"></span></p>
+            <p>Horario: <span th:text="${agendaEleitoral.horario}"></span></p>
+        </div>
     </div>
 
-    <form method="post">
-        Nome: <input type="text" value="" name="nomeConvidado"/>
-        Codigo: <input type="text" value="" name="codigo"/>
-        Partido: <input type="text" value="" name="partido"/>
-        <button class="waves-effect waves-light btn" type="submit">Adicionar</button>
-    </form>
+        <th:block th:include="mensagemValidacao"></th:block>
+
+        <div class="container formConvidado">
+        <form method="post" th:object="${convidado}">
+            Nome: <input type="text" value="" name="nomeConvidado" placeholder="Nome Completo"/>
+            Codigo: <input type="text" value="" name="codigo" placeholder=" " class="validate"/>
+            Partido: <input type="text" value="" name="partido" placeholder="Partido"/>
+            <button class="waves-effect waves-light btn" type="submit">Adicionar</button>
+        </form>
     </div>
-    <h5>Lista Convidados: </h5>
-    <div class="container" th:each="convidado : ${convidados}">
-        <div class="row">
-            <div class="input-field col s6">
-                <p><span th:text="${convidado.nomeConvidado}"></span></p>
-            </div>
-            <div class="input-field col s3">
-                <p><span th:text="${convidado.codigo}"></span></p>
-            </div>
-            <div class="input-field col s3">
-                <p><span th:text="${convidado.partido}"></span></p>
-            </div>
-    </div>
-</div>
+    <table class="container tabelaConvidado"5>
+        <thead>
+            <tr>
+                <th>Nome do Convidado</th>
+                <th>Codigo</th>
+                <th>Partido</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="convidado : ${convidados}">
+                <td><span th:text="${convidado.nomeConvidado}"></span></td>
+                <td><span th:text="${convidado.codigo}"></span></td>
+                <td><span th:text="${convidado.partido}"></span></td>
+            </tr>
+        </tbody>
+    </table>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
 
