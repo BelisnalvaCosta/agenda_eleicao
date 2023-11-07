@@ -1,5 +1,5 @@
 # agenda_eleicao
-Agenda de eventos para candidatos Eleirorais(codigo do candidato, nome, partido, local do evento, data e horário dos eventos)[^1]
+Agenda de eventos para candidatos Eleitorais(codigo do candidato, nome, partido, local do evento, data e horário dos eventos)[^1]
 Observação: Projeto ainda em andamento, Notebook ruim (problemas técnicos).
 
 Projeto foi feito na IDE Intellij.
