@@ -32,16 +32,18 @@
             <th>Local</th>
             <th>Data</th>
            <th>Horario</th>
+           <th>Deletar</th>
         </tr>
         </thead>
         <tbody>
         <tr each="agendaEleicao : ${agendaEleicao}">
-            <td><a href="${(#mvc.url('EC#detalhesAgendaEleicao').arg(0, agenda.codigo)).build()}"><span text="${agenda.nome}"></span></a></a></td>
+            <td><a th:href="${(#mvc.url('EC#detalhesAgendaEleicao').arg(0, agenda.codigo)).build()}"><span text="${agenda.nome}"></span></a></td>
             <td>span th:text="${agenda.codigo}"></span></td>
             <td>span th:text="${agendaEleitoral.nome}"></span></td>
             <td>span th:text="${agenda.partido}"></span></td>
             <td>span th:text="${agendaEleitoral.local}"></span></td>
             <td>span th:text="${agendaEleitoral.horario}"></span></td>
+            <td><a class="waves-effect waves-light btn-smal" th:href="${(#mvc.url('EC#deletarEvento').arg(0, Evento.codigo)).build()}">< i class="material-icons left">delete</a></td>
         </tr>
         </tbody>
     </table>

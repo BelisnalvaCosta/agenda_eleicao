@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-public class AgandaEleicaoController {
+public class AgandaEleicaoController<codigo> {
 
     @Autowired
     private AgendaEleicaoRepository er;
@@ -22,13 +22,13 @@ public class AgandaEleicaoController {
     @Autowired
     private ConvidadoRepository cr;
 
-    @RequestMapping(value="/cadastrarAgendaEleicao", method=RequestMethod.GET)
-    public String form(){
+    @RequestMapping(value = "/cadastrarAgendaEleicao", method = RequestMethod.GET)
+    public String form() {
         return "agendaEleicao/formAgendaEleicao";
     }
 
-    @RequestMapping(value="/cadastrarAgendaEleicao", method=RequestMethod.POST)
-    public String form(AgendaEleicao agendaEleicao, BindingResult result, RedirectAttributes attributes){
+    @RequestMapping(value = "/cadastrarAgendaEleicao", method = RequestMethod.POST)
+    public String form(AgendaEleicao agendaEleicao, BindingResult result, RedirectAttributes attributes) {
         if (result.hasErrors()) {
             attributes.addFlashAttribute("mensagem", "Verifique os campos!");
             return "direct:/cadastrarAgendaEleicao";
@@ -38,15 +38,15 @@ public class AgandaEleicaoController {
     }
 
     @RequestMapping("/agendaEleicao")
-    public ModelAndView listAgendaEleicao(){
+    public ModelAndView listAgendaEleicao() {
         ModelAndView mv = new ModelAndView("index");
         Iterable<AgendaEleicao> agendaEleicao = er.findAll();
         mv.addObject("agendaEleicao", agendaEleicao);
         return mv;
     }
 
-    @RequestMapping(value="/{codigo}", method=RequestMethod.GET)
-    public ModelAndView detalhesAgendaEleicao(@PathVariable("codigo") long codigo){
+    @RequestMapping(value = "/{codigo}", method = RequestMethod.GET)
+    public ModelAndView detalhesAgendaEleicao(@PathVariable("codigo") long codigo) {
         AgendaEleicao agendaEleicao = er.findByCodigo(codigo);
         ModelAndView mv = new ModelAndView("agendaEleicao/datelhesAgendaEleicao");
         mv.addObject("agendaEleicao", agendaEleicao);
@@ -57,8 +57,16 @@ public class AgandaEleicaoController {
         return mv;
     }
 
-    @RequestMapping(value="/{codigo}", method=RequestMethod.POST)
-    public String detalhesAgendaEleicaoPost(@PathVariable("codigo") long codigo, @Valid Convidado convidado, BindingResult result, RedirectAttributes attributes){
+    @RequestMapping("/deletarEvento")
+    public String deletarEvento(long codigo) {
+        AgendaEleicao agendaEleicao = er.findByCodigo(codigo);
+        er.delete(agendaEleicao);
+        return "direct:/agendaEleicao";
+    }
+
+    @RequestMapping(value = "/{codigo}", method = RequestMethod.POST)
+    public String detalhesAgendaEleicaoPost(@PathVariable("codigo") long codigo, @Valid Convidado convidado,
+            BindingResult result, RedirectAttributes attributes) {
         if (result.hasErrors()) {
             attributes.addFlashAttribute("mensagem", "Verifique os campos!");
             return "direct:/cadastrarAgendaEleicao";
@@ -70,4 +78,14 @@ public class AgandaEleicaoController {
         return "redirect:/{codigo}";
     }
 
+    @RequestMapping("/deletarConvidado")
+    public String deletarConvidado(String codigo) {
+        Convidado convidado = cr.findByCodigo(codigo);
+        cr.delete(convidado);
+
+        AgendaEleicao agendaEleicao = convidado.getAgendaEleicao();
+        long codigoLong = agendaEleicao.getCodigo();
+        codigo = "" + codigoLong;
+        return "direct:/" + codigo;
+    }
 }

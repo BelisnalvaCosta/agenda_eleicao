@@ -6,4 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface ConvidadoRepository extends CrudRepository<Convidado, String> {
     Iterable<Convidado> findByAgendaEleicao(AgendaEleicao agendaEleicao);
+    Convidado findByCodigo(String codigo);
 }

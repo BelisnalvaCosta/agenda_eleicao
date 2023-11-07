@@ -49,6 +49,7 @@
                 <th>Nome do Convidado</th>
                 <th>Codigo</th>
                 <th>Partido</th>
+                <th>Deletar</th>
             </tr>
         </thead>
         <tbody>
@@ -56,6 +57,7 @@
                 <td><span th:text="${convidado.nomeConvidado}"></span></td>
                 <td><span th:text="${convidado.codigo}"></span></td>
                 <td><span th:text="${convidado.partido}"></span></td>
+                <td><a class="waves-effect waves-light btn-smal" th:href="${(#mvc.url('EC#deletarConvidado').arg(0, convidado.codigo)).build()}">< i class="material-icons left">delete</a></td>
             </tr>
         </tbody>
     </table>
